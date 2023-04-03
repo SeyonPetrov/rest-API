@@ -1,6 +1,7 @@
 import flask
-import db_session
-from jobs import Jobs
+from flask import jsonify
+from data import db_session
+from data.jobs import Jobs
 
 
 blueprint = flask.Blueprint(
@@ -12,4 +13,10 @@ blueprint = flask.Blueprint(
 
 @blueprint.route('/api/jobs')
 def get_news():
-    return "Обработчик в jobs_api"
+    item = db_session.create_session().query(Jobs).all()
+    return jsonify(
+        {
+            'news':
+                [x.to_dict() for x in item]
+        }
+    )

@@ -1,7 +1,14 @@
-from data import db_session, jobs
+from data import ROD, db_session
+from flask import Flask
+
+app = Flask(__name__)
 
 
 def main():
     db_session.global_init("db/blogs.db")
-    app.register_blueprint(jobs.blueprint)
+    app.register_blueprint(ROD.blueprint)
     app.run()
+
+
+if __name__ == '__main__':
+    main()
